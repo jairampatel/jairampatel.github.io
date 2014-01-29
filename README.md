@@ -1,2 +1,2 @@
-JairamPatel.github.io
+jairampatel.github.io
 =====================
