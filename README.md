@@ -1,40 +1,45 @@
-# Jekyll-Bootstrap
+jekyll-starter
+==============
 
-The quickest way to start and publish your Jekyll powered blog. 100% compatible with GitHub pages
+A super-simple starter kit for a bare-bones Jekyll instance.  To use, just install Jekyll  (if you haven't already):
 
-## Usage
+    gem install jekyll
 
-For all usage and documentation please see: <http://jekyllbootstrap.com>
+... then:
 
-## Version
+	mkdir my-new-blog; cd my-new-blog
+	git clone git://github.com/cnunciato/jekyll-starter.git .
 
-0.3.0 - stable and versioned using [semantic versioning](http://semver.org/).
+... and then finally:
 
-**NOTE:** 0.3.0 introduces a new theme which is not backwards compatible in the sense it won't _look_ like the old version.
-However, the actual API has not changed at all.
-You might want to run 0.3.0 in a branch to make sure you are ok with the theme design changes.
+    jekyll --server
 
-## Contributing
+Then open your browser and hit [http://localhost:5000](http://localhost:5000).
 
+That'll get you a home page and one post.  The rest is all you!  See the [Jekyll docs](https://github.com/mojombo/jekyll/wiki) for details.
 
-To contribute to the framework please make sure to checkout your branch based on `jb-development`!!
-This is very important as it allows me to accept your pull request without having to publish a public version release.
+Keep in mind that at this point, you'll have a cloned version of my repository, which you might not want.  To start fresh with a commit history of your own (which I'd recommend, unless you plan on contributing to this project), do this from the root of `my-new-blog`:
 
-Small, atomic Features, bugs, etc.
-Use the `jb-development` branch but note it will likely change fast as pull requests are accepted.
-Please rebase as often as possible when working.
-Work on small, atomic features/bugs to avoid upstream commits affecting/breaking your development work.
+    rm -rf .git
+    git init
+    git add .
+    git commit -am "my first commit"
 
-For Big Features or major API extensions/edits:
-This is the one case where I'll accept pull-requests based off the master branch.
-This allows you to work in isolation but it means I'll have to manually merge your work into the next public release.
-Translation : it might take a bit longer so please be patient! (but sincerely thank you).
+### What This Actually Does	
 
-**Jekyll-Bootstrap Documentation Website.**
+All this kit does is set you up with the typical Jekyll directory structure, a sample index.html file, a sample post, a shared header and footer, and a couple of tweaks to the default configuration (port 5000, auto-regenerate true).  That's it -- no categories, no tags, no Twitter or Disqus integration, no fanciness.  Deliberately simple, just the basics.  I know I wanted this when I first got started with Jekyll, so here it is -- hopefully helpful to you, too.
 
-The documentation website at <http://jekyllbootstrap.com> is maintained at https://github.com/plusjade/jekyllbootstrap.com
+To create a new post, just:
 
+    touch _posts/yyyy-mm-dd-url-friendly-title.markdown
 
-## License
+... where yyyy-mm-dd is a date (e.g., 2012-08-31) and url-friendly-title is, well, a URL-friendly title.  Then inside that post, be sure to add at least the minimal [YAML front matter](https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter) (see the _posts folder for an example):
 
-[MIT](http://opensource.org/licenses/MIT)
+    ---
+    layout: post
+    title: "My Second Post"
+    ---
+
+   	It was a dark and stormy night...
+
+Enjoy.
