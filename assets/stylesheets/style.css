@@ -1,0 +1,27 @@
+body {
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #25475C;
+}
+.panel {
+    border-color: #555;
+}
+
+.sidebar {
+	position: fixed;
+	top: 0px;
+	padding-top: 10%;
+}
+
+.sidebar-header {
+	text-align: center;
+	margin-bottom: 10px;
+}
+.sidebar-header .title{
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.sidebar-header .title a{
+	text-decoration: none;
+	color: #2c3e50;
+}
