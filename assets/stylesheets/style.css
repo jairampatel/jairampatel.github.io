@@ -1,6 +1,7 @@
 body {
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: #25475C;
+  padding: 10%;
 }
 .panel {
     border-color: #555;
