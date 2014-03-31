@@ -15,14 +15,12 @@
 	<header>
 		{% include header.html %}
 	</header>
+	
 	<div class="container">
-		{% for post in site.posts %}
-			<article>
-				<h1><a href="{{ site.base_url }}{{ post.url }}">{{ post.title }}</a></h1>
-				<p>{{ post.date | date_to_string }}</p>
-				<p>{{ post.except | remove: '<p>' | remove: '</p>' }}</p>
-			</article>
-		{% endfor %}
+		<div class="row">
+			<div class="col-md-4">![My helpful screenshot]({{ site.url }}/assets/elementConverter.png)</div>
+	  		<div class="col-md-8">Description about project</div>
+		</div>
 	</div>
 	<footer>
 		{% include footer.html %}
