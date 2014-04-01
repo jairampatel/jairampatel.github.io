@@ -1,6 +1,7 @@
 body {
-  font: 17px "Lucida Grande", Helvetica, Arial, sans-serif !important;
-  color: #2c3e50 !important;
+  font: 17px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 17px !important;
+  color: #2c3e50;
 }
 #header{
 	padding-top: 10%;
