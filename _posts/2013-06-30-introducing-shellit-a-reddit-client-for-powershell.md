@@ -18,4 +18,4 @@ Some of the improvements I’ll probably make in my next update will be to:
 Allow users to view comments for all posts
 Warn the user when the link tries to open an image/video (you can’t view an image/video in the PowerShell window).
 Improve the html rendering in the PowerShell window
-Shellit is open source and you can contribute to it on Github. https://github.com/J-rom/Shellit
+Shellit is open source and you can contribute to it on Github [here](https://github.com/J-rom/Shellit)
