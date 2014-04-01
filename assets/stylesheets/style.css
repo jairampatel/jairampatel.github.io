@@ -1,6 +1,6 @@
 body {
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
-  color: #25475C;
+  color: #2c3e50;
 }
 #header{
 	padding-top: 10%;
@@ -33,6 +33,11 @@ hr.style-six {
 }
 
 .sidebar-header .title a{
+	text-decoration: none;
+	color: #2c3e50;
+}
+
+.sidebar-header .title #page{
 	text-decoration: none;
 	color: #2c3e50;
 }
