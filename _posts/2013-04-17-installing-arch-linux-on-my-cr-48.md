@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Installing Arch linux on my CR-48"
+title: "Installing Arch Linux on my CR-48"
 ---
 
 CR-48 is the beta Chromebook released by Google several years ago. It was given away for free to those who applied/were selected. I consider myself extremely fortunate for having been selected and I tried to make the most of it.
