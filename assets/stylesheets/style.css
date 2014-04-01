@@ -41,8 +41,9 @@ hr.style-six {
 	letter-spacing: 3px;
 	text-transform: uppercase;
 	text-decoration: none;
-	width:600px;
-	height:400px;
+	width:400px;
+	height:300px;
+	margin: 10px ;
 	-webkit-border-radius: 40px;
 	-moz-border-radius: 40px;
 	border-radius: 40px;
