@@ -13,14 +13,23 @@ The way the CR-48 is set up is that it has 3 kernel/rootfs partitions. The 1st a
 
 First, I tried installing Arch using this method:
 
-https://sites.google.com/a/chromium.org/dev/chromium-os/developer-information-for-chrome-os-devices/cr-48-chrome-notebook-developer-information/how-to-boot-ubuntu-on-a-cr-48
+<blockquote>
+	<p>
+		https://sites.google.com/a/chromium.org/dev/chromium-os/developer-information-for-chrome-os-devices/cr-48-chrome-notebook-developer-information/how-to-boot-ubuntu-on-a-cr-48
+	</p>
+</blockquote>
 This method installed Arch to the 3rd pair, keeping Chrome OS on the 1st two pairs. However, I ran into issues where my modules were not being loaded correctly. Instead, I decided to completely overwrite all the partitions and have Arch Linux use the entire disk.
 
 In order to achieve this, I needed to open up my CR-48, disable the BIOS write protection, and flash a new BIOS. This was pretty straight forward. The following took care of these steps:
 
-http://cr-48.wikispaces.com/Open+the+Cr-48
-
-http://cr-48.wikispaces.com/Flash+BIOS
+<blockquote>
+	<p>
+		http://cr-48.wikispaces.com/Open+the+Cr-48
+	</p>
+	<p>
+		http://cr-48.wikispaces.com/Flash+BIOS
+	</p>
+</blockquote>
 After that, I created a bootable USB with Arch Linux on it, plugged it into my CR-48, and installed Arch.
 
 I’ve only spent a few days using Arch but so far, I love it. I am able to choose which packages to install from the very beginning. Because of this, I’m able to minimize the amount of space I’m using as well as have more control over my system.
