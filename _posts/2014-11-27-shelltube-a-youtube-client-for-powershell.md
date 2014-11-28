@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Shelltube, a youtube client for Powershell"
+title: "Shelltube, a Youtube client for Powershell"
 ---
 
 With the addition of this post, 67% of my blog posts will have been about Powershell. I should probably diversify my projects a bit.
