@@ -2,7 +2,7 @@
 layout: post
 title: "Shelltube, a Youtube client for Powershell"
 ---
-Download it [here](https://github.com/jairampatel/shelltube)
+[Download it here](https://github.com/jairampatel/shelltube)
 
 With the addition of this post, 67% of my blog posts will have been about Powershell. I should probably diversify my projects a bit.
 
