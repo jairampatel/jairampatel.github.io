@@ -1,4 +1,0 @@
-Jairam Patel
-==============
-
-My blog.
