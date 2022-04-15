@@ -1,0 +1,6 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<h4>Published: {{ .PublishDate.Format "Jan 2, 2006" }}</h4>
+<br>
+{{ .Content }}
+{{ end }}

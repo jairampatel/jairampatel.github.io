@@ -1,0 +1,18 @@
+{{ define "main"}}
+
+<h1>{{ .Title }}</h1>
+{{ range .Pages.ByPublishDate.Reverse }}
+<div class="projectPost">
+    <div class="projectLogo">
+        <img src={{ .Params.image }} alt="icon" class="logo">
+    </div>
+    <div class="projectDescription">
+        <h2>
+            {{ .Page.Title }} - {{ .Params.description }}
+        </h2>
+    </div>
+</div>
+{{ .Content }}
+{{ end }}
+
+{{ end }}
