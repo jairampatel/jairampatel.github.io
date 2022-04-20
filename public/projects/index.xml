@@ -14,8 +14,19 @@
       
       <guid>https://jairampatel.github.io/projects/good-plates/</guid>
       <description>Good Plates is a minimalist recipe website that removes choice paralysis by showing a single recipe at a time to users based on their preferences.
-The frontend is written in Typescript and hosted on Netlify. The backend leverages API Gateway and AWS Lambda for routing requests. The recipes are stored in DynamoDB using a custom B-Tree implementation.
+The frontend is written in Typescript and hosted on Netlify. The backend leverages API Gateway and AWS Lambda for routing requests. The recipes are stored in a custom B-Tree implementation on top of DynamoDB.
 Link to site</description>
+    </item>
+    
+    <item>
+      <title>Rebound</title>
+      <link>https://jairampatel.github.io/projects/rebound/</link>
+      <pubDate>Wed, 30 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jairampatel.github.io/projects/rebound/</guid>
+      <description>Link to download
+Rebound is a game with multi-colored balls bouncing around. By playing this game, you will improve your ability to multi-task and focus on multiple things at once.
+How to play All balls will have a number on them. When balls bounce against the wall, that number will decrease. When the ball value has gone down to one, you must press on one of the four wall quadrants to let the ball through.</description>
     </item>
     
     <item>
