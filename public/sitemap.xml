@@ -2,10 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://jairampatel.github.io/how-do-you-find-your-top-3-favorite-disney-movies/</loc>
+    <lastmod>2022-04-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/</loc>
+    <loc>https://jairampatel.github.io/</loc>
+    <lastmod>2022-04-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://jairampatel.github.io/posts/</loc>
+    <lastmod>2022-04-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/projects/good-plates/</loc>
+    <lastmod>2021-05-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/projects/</loc>
+    <lastmod>2021-05-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/shelltube-a-youtube-client-for-powershell/</loc>
+    <lastmod>2014-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/introducing-shellit-a-reddit-client-for-powershell/</loc>
+    <lastmod>2013-06-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/installing-arch-linux-on-my-cr-48/</loc>
+    <lastmod>2013-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/projects/shelltube/</loc>
+    <lastmod>2012-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/projects/notecard/</loc>
+    <lastmod>2012-05-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/projects/concord/</loc>
+    <lastmod>2012-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/projects/shellit/</loc>
+    <lastmod>2012-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/projects/chauffeur/</loc>
+    <lastmod>2012-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/projects/element-converter/</loc>
+    <lastmod>2010-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jairampatel.github.io/categories/</loc>
+  </url><url>
+    <loc>https://jairampatel.github.io/tags/</loc>
   </url>
 </urlset>
