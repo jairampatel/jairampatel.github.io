@@ -9,20 +9,20 @@
     <lastBuildDate>Tue, 19 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://jairampatel.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How do you find your top 3 favorite Disney movies?</title>
-      <link>https://jairampatel.github.io/how-do-you-find-your-top-3-favorite-disney-movies/</link>
+      <link>https://jairampatel.github.io/2022/04/19/how-do-you-find-your-top-3-favorite-disney-movies/</link>
       <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://jairampatel.github.io/how-do-you-find-your-top-3-favorite-disney-movies/</guid>
+      <guid>https://jairampatel.github.io/2022/04/19/how-do-you-find-your-top-3-favorite-disney-movies/</guid>
       <description>What is the problem? How would you find your top 3 favorite Disney movies? Even if you were to consider just the movies from the last 10 years, that&amp;rsquo;s a lot of movies to consider (an even 100 as of writing this post).
 If this question were asked in a programming environment, we would probably use quick-sort easy-peasy since it’s pretty fast with an average runtime of \(\mathcal{O}(n\log{}n)\). However, if this were asked in a human environment (strange, I know), quick sort may not be the best since the worst case number of comparisons is \(\mathcal{O}(n^2)\).</description>
     </item>
     
     <item>
       <title>Shelltube a Youtube client for Powershell</title>
-      <link>https://jairampatel.github.io/shelltube-a-youtube-client-for-powershell/</link>
+      <link>https://jairampatel.github.io/2014/11/27/shelltube-a-youtube-client-for-powershell/</link>
       <pubDate>Thu, 27 Nov 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://jairampatel.github.io/shelltube-a-youtube-client-for-powershell/</guid>
+      <guid>https://jairampatel.github.io/2014/11/27/shelltube-a-youtube-client-for-powershell/</guid>
       <description>Download Shelltube here
 With the addition of this post, 67% of my blog posts will have been about Powershell. I should probably diversify my projects a bit.
 Shelltube is a Youtube client for Powershell. Just type what video you want to listen/watch and Shelltube will play it for you.
@@ -32,10 +32,10 @@ In version 1.0, Shelltube will launch Internet Explorer (sorry, it was the commo
     
     <item>
       <title>Introducing Shellit a Reddit client for Powershell</title>
-      <link>https://jairampatel.github.io/introducing-shellit-a-reddit-client-for-powershell/</link>
+      <link>https://jairampatel.github.io/2013/06/30/introducing-shellit-a-reddit-client-for-powershell/</link>
       <pubDate>Sun, 30 Jun 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://jairampatel.github.io/introducing-shellit-a-reddit-client-for-powershell/</guid>
+      <guid>https://jairampatel.github.io/2013/06/30/introducing-shellit-a-reddit-client-for-powershell/</guid>
       <description>A few weeks ago, I had the idea of making a Reddit client for PowerShell. One of the reasons for making Shellit was you can browse Reddit and look like you’re working that I hadn’t done much scripting in PowerShell before. Plus it gave me a chance to finally start making my own repositories on Github.
 Shellit is extremely primitive. Currently, users can:
  Login if they want to Navigate through different pages of reddit Open links in the PowerShell window View comments on self posts  Some of the improvements I’ll probably make in my next update will be to:</description>
@@ -43,10 +43,10 @@ Shellit is extremely primitive. Currently, users can:
     
     <item>
       <title>Installing Arch Linux on My Cr 48</title>
-      <link>https://jairampatel.github.io/installing-arch-linux-on-my-cr-48/</link>
+      <link>https://jairampatel.github.io/2013/04/17/installing-arch-linux-on-my-cr-48/</link>
       <pubDate>Wed, 17 Apr 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://jairampatel.github.io/installing-arch-linux-on-my-cr-48/</guid>
+      <guid>https://jairampatel.github.io/2013/04/17/installing-arch-linux-on-my-cr-48/</guid>
       <description>CR-48 is the beta Chromebook released by Google several years ago. It was given away for free to those who applied/were selected. I consider myself extremely fortunate for having been selected and I tried to make the most of it.
 If you’re not aware, Chromebooks run on Chrome OS, which is essentially just the Chrome browser. It is built upon a Linux kernel so if you were to flip the hardware switch to developer mode (as I did multiple times), you would be able to use the shell and gain more control over your Chromebook.</description>
     </item>

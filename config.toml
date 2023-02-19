@@ -3,4 +3,4 @@ languageCode = 'en-us'
 title = "Jairam's Blog"
 theme = "jairamTheme"
 [permalinks]
-  posts = '/:title/'
+  posts = '/:year/:month/:day/:title/'
