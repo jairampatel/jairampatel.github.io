@@ -4,9 +4,9 @@ date: 2023-02-19
 draft: true
 ---
  
-## BLUF
+## TL;DR
 
-**Disclaimer: These results are only representative of my specific simulation setup. Simulations with different parameters may yield different results. For example: higher volume, larger function size, different language, different region etc…**
+**Disclaimer: These results are representative of my specific simulation setup. Simulations with different parameters may yield different results. For example: higher volume, larger function size, different language, different region etc…**
 
 
 Overall, AWS was the easiest to set up and was the most reliable in terms of performance across all regions. GCP was the fastest in terms of client-side latency and I’m still not sure why this is the case. Given that the datacenters for each cloud provider are relatively close to each other, my best guess would be that GCP’s server-side performance is simply faster. For my specific use-case of a fast and low volume function, it probably would have made sense to go with GCP if I cared about the extra 100 - 300 milliseconds. However, if the function time was several seconds, I believe that AWS would become more attractive as the performant function time would start offsetting the client-side latency.
