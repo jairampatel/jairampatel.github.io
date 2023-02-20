@@ -1,5 +1,5 @@
 ---
-title: "Cold Starts: AWS vs Azure vs GCP"
+title: "Battle of the Cloud Functions: AWS Lambda vs Azure Cloud Functinos vs GCP Cloud Functions"
 date: 2023-02-19
 draft: true
 ---
@@ -110,6 +110,8 @@ I am opting to not use additional provider-specific configurations that may help
 ![LHR P90 Function Latency](/images/cs/FunctionLatencyP90LHR.png "LHR P90 Function Latency")
 ![NRT P90 Function Latency](/images/cs/FunctionLatencyP90NRT.png "NRT P90 Function Latency")
 
+**Winner: AWS**
+
 ### Client-side latency (excluding outliers)
 
 #### Overall Client-side Latency
@@ -119,12 +121,16 @@ I am opting to not use additional provider-specific configurations that may help
 ![LHR Client-side Latency](/images/cs/ClientLatencyLHR.png "LHR Client-side Latency")
 ![NRT Client-side Latency](/images/cs/ClientLatencyNRT.png "NRT Client-side Latency")
 
+**Winner: GCP**
+
 #### p90 Client-side Latency
 
 ![GRU P90 Client-side Latency](/images/cs/ClientLatencyP90GRU.png "GRU P90 Client-side Latency")
 ![IAD P90 Client-side Latency](/images/cs/ClientLatencyP90IAD.png "IAD P90 Client-side Latency")
 ![LHR P90 Client-side Latency](/images/cs/ClientLatencyP90LHR.png "LHR P90 Client-side Latency")
 ![NRT P90 Client-side Latency](/images/cs/ClientLatencyP90NRT.png "NRT P90 Client-side Latency")
+
+**Winner: GCP**
 
 ### AWS Cold Start Latencies by Region
 
