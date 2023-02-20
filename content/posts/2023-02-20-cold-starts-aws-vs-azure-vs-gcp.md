@@ -21,13 +21,13 @@ Caveat: I’m not sure if I should weigh the client-side latency findings too he
 
 ## Interesting findings
 
-* Even though my call pattern was low-volume (once per minute), AWS Lambda would cold start roughly once every ~130 minutes plus or minus 20 minutes
+* Even though my call pattern was low-volume (once per minute), AWS Lambda would cold start roughly once every ~130 minutes plus or minus 20 minutes. [Reference](#aws-cold-start-latencies-by-region)
 * For overall function latency, AWS, ~1ms,  was slightly faster than GCP, ~3ms, but both of them were relatively stable and not much variance. Azure took around ~8-10 ms to execute a hello world function. When looking at the p90 latency, AWS was consistently stable but GCP median latency jumped to ~45-50ms FRA, GRU, LHR, and NRT. IAD remained stable around ~4ms.
 * From a client-side latency perspective, GCP Cloud Functions were the fastest across all regions by 100’s of milliseconds in some cases. There are several explanations for this: 
 * Server side latency - the time between when the cloud provider receives the invoke request to when the function is invoked
 * Network latency - The network hops from the caller to the cloud providers are likely different and could impact latency
 * Local setup  - In my simulation, I called various cloud providers from a t2.micro EC2 instance in us-west-2. The results could have varied if I used a different network setup or even a different cloud provider.
-* All 3 cloud providers are relatively stable when comparing overall client latencies. When comparing p90 client latencies, AWS and GCP were relatively stable while Azure’s variance was significantly larger in most regions.
+* All 3 cloud providers are relatively stable when comparing overall client latencies. When comparing p90 client latencies, AWS and GCP were relatively stable while Azure’s variance was significantly larger in most regions. [Reference](#p90-client-side-latency)
 * For overall function and client latencies, Azure kept up with AWS and GCP. However, performance started to vary by orders of magnitude when looking at p90.
 
 ## Background
@@ -127,11 +127,11 @@ I am opting to NOT use additional provider-specific configurations that may help
 ![LHR P90 Client-side Latency](/images/cs/ClientLatencyP90LHR.png "LHR P90 Client-side Latency")
 ![NRT P90 Client-side Latency](/images/cs/ClientLatencyP90NRT.png "NRT P90 Client-side Latency")
 
-### AWS: Cold Start Latencies by Region (ms)
+### AWS Cold Start Latencies by Region
 
 ![AWS cold start Latency](/images/cs/AWSColdStartLatency.png "AWS Cold Start Latency")
 
-### Time between cold starts (minutes)
+### Time between cold starts
 
 ![AWS time between cold starts](/images/cs/ColdStartDeltaAWS.png "AWS Cold Start Delta")
 ![Azure time between cold starts](/images/cs/ColdStartDeltaAzure.png "Azure Cold Start Delta")
