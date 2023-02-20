@@ -72,7 +72,7 @@ There is a chance that requests could fail that are not related to the serverles
 If the canary runs on the same infrastructure as some of the Cloud Functions, that may bias some of the results. For example, the canary running on an AWS EC2 instance calling Lambda may produce different results if the canary was running on completely isolated infrastructure.
 
 ## Simulation setup
-I have a t2.micro EC2 instance launched in us-west-2 (Oregon). Once per minute, I will make requests to 4 regions in AWS, Azure, and GCP. I have chosen specific regions that are in close proximity to each other so that we can get as close to an apples to apples comparison as possible.
+I have a t2.micro EC2 instance launched in us-west-2 (Oregon). Once per minute, I make requests to function services in each of the 4 regions in AWS, Azure, and GCP. I have chosen specific regions that are in close proximity to each other so that we can get as close to an apples to apples comparison as possible.
 
 
 | Airport code | AWS                     | Azure                          | GCP                            |
@@ -88,7 +88,7 @@ All functions are configured with the following:
 * Python 3.8 runtime
 * x86-based architecture
 
-I am opting to NOT use additional provider-specific configurations that may help improve performance and reduce cold starts. For this simulation, I am interested in seeing how each service performs out of the box.
+I am opting to not use additional provider-specific configurations that may help improve performance and reduce cold starts. For this simulation, I am interested in seeing how each service performs out of the box.
 
 ## Results
 
@@ -158,7 +158,4 @@ Getting the Python Cloud Functions client to work with auth was a bit tedious. T
 
 ### Azure
 
-Azure was the most painful integration. There were several fields I needed to set in order to get the function working. After I created function keys, they would automatically get deleted after some amount of time. After Googling, I found that I needed to update the lifecycle policy in the storage account. There were cases where Azure would just be missing logs from my invocations so I was unable to get some performance numbers.
-
-
-
+Azure was the most painful integration. There were several fields I needed to set in order to get the functions working. After I created function keys, they would automatically get deleted after some amount of time. After Googling, I found that I needed to update the lifecycle policy in the storage account. There were cases where Azure would just be missing logs from my invocations so I was unable to get some performance numbers for some of the invocations.
