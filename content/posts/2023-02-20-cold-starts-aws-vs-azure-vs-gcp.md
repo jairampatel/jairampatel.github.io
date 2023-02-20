@@ -23,9 +23,9 @@ Caveat: I’m not sure if I should weigh the client-side latency findings too he
 
 * Even though my call pattern was low-volume (once per minute), AWS Lambda would cold start roughly once every ~130 minutes plus or minus 20 minutes. [Reference](#aws-cold-start-latencies-by-region)
 * From a client-side latency perspective, GCP Cloud Functions were the fastest across all regions by 100’s of milliseconds in some cases. There are several explanations for this: 
- * Server side latency - the time between when the cloud provider receives the invoke request to when the function is invoked
- * Network latency - The network hops from the caller to the cloud providers are likely different and could impact latency
- * Local setup  - In my simulation, I called various cloud providers from a t2.micro EC2 instance in us-west-2. The results could have varied if I used a different network setup or even a different cloud provider.
+  * Server side latency - the time between when the cloud provider receives the invoke request to when the function is invoked
+  * Network latency - The network hops from the caller to the cloud providers are likely different and could impact latency
+  * Local setup  - In my simulation, I called various cloud providers from a t2.micro EC2 instance in us-west-2. The results could have varied if I used a different network setup or even a different cloud provider.
 * All 3 cloud providers are relatively stable when comparing overall client latencies. When comparing p90 client latencies, AWS and GCP were relatively stable while Azure’s variance was significantly larger in most regions. [Reference](#p90-client-side-latency)
 * For overall function and client latencies, Azure kept up with AWS and GCP. However, performance started to vary by orders of magnitude when looking at p90.
 
