@@ -21,13 +21,13 @@ Caveat: I’m not sure if I should weigh the client-side latency findings too he
 
 ## Interesting findings
 
-* Even though my call pattern was low-volume (once per minute), AWS Lambda would cold start roughly once every ~130 minutes plus or minus 20 minutes TODO ref
-* For overall function latency, AWS, ~1ms,  was slightly faster than GCP, ~3ms, but both of them were relatively stable and not much variance. Azure took around ~8-10 ms to execute a hello world function. When looking at the p90 latency, AWS was consistently stable but GCP median latency jumped to ~45-50ms FRA, GRU, LHR, and NRT. IAD remained stable around ~4ms. TODO ref.
-* From a client-side latency perspective, GCP Cloud Functions were the fastest across all regions by 100’s of milliseconds in some cases. TODO ref There are many explanations for this: 
+* Even though my call pattern was low-volume (once per minute), AWS Lambda would cold start roughly once every ~130 minutes plus or minus 20 minutes
+* For overall function latency, AWS, ~1ms,  was slightly faster than GCP, ~3ms, but both of them were relatively stable and not much variance. Azure took around ~8-10 ms to execute a hello world function. When looking at the p90 latency, AWS was consistently stable but GCP median latency jumped to ~45-50ms FRA, GRU, LHR, and NRT. IAD remained stable around ~4ms.
+* From a client-side latency perspective, GCP Cloud Functions were the fastest across all regions by 100’s of milliseconds in some cases. There are several explanations for this: 
 * Server side latency - the time between when the cloud provider receives the invoke request to when the function is invoked
 * Network latency - The network hops from the caller to the cloud providers are likely different and could impact latency
 * Local setup  - In my simulation, I called various cloud providers from a t2.micro EC2 instance in us-west-2. The results could have varied if I used a different network setup or even a different cloud provider.
-* All 3 cloud providers are relatively stable when comparing overall client latencies. TODO ref. When comparing p90 client latencies, AWS and GCP were relatively stable while Azure’s variance was significantly larger in most regions.
+* All 3 cloud providers are relatively stable when comparing overall client latencies. When comparing p90 client latencies, AWS and GCP were relatively stable while Azure’s variance was significantly larger in most regions.
 * For overall function and client latencies, Azure kept up with AWS and GCP. However, performance started to vary by orders of magnitude when looking at p90.
 
 ## Background
