@@ -1,35 +1,54 @@
 ---
-title: "Battle of the Cloud Functions: AWS Lambda vs Azure Cloud Functinos vs GCP Cloud Functions"
-date: 2023-02-19
+title: "Latency Showdown: AWS Lambda vs Azure Cloud Functions vs GCP Cloud Functions"
+date: 2023-03-04
 draft: true
 ---
- 
-## TL;DR
 
 **Disclaimer: These results are representative of my specific simulation setup. Simulations with different parameters may yield different results. For example: higher volume, larger function size, different language, different region etc…**
+ 
+## Intro
+
+If you're thinking of using serverless functions, it's crucial to pick a cloud provider that gives great results without fail. This article compares AWS Lambda, Azure Cloud Functions, and GCP Cloud Functions to see which is the fastest and easiest to use. When you finish reading, you'll know which one is perfect for your business. Let's dive into this detailed comparison of the three best serverless function providers!
+
+## Results TL;DR
+
+Overall winner: AWS Lambda
+
+| Category                                    | Winner |
+| ------------------------------------------- | ------ |
+| Function latency (lower is better)          | AWS    |
+| Client latency (lower is better)            | GCP    |
+| Ease of setup                               | AWS    |
+| Time between cold starts (higher is better) | AWS    |
 
 
-Overall, AWS was the easiest to set up and was the most stable in terms of function latency across all regions. GCP was the fastest in terms of client-side latency and I’m still not sure why this is the case. Given that the data centers for each cloud provider are relatively close to each other, my best guess would be that GCP’s server-side performance is simply faster. 
+Overall, AWS was the easiest to set up and was the most stable in terms of function latency across all regions. GCP was the fastest in terms of client-side latency and I’m still not completely sure why this is the case. Given that the data centers for each cloud provider are probably close to each other, my best guess would be that GCP’s server-side performance is simply faster. 
 
-If I were to deploy to production for my specific use-case of a fast and low volume function, I would most likely choose GCP since I would save an extra 100 - 300 milliseconds. However, if the function time was several seconds, I believe that AWS would become more attractive as the performant function time would start offsetting the client-side latency.
 
-Azure’s client-side latency variance was quite high and appeared to be right-skewed. This combined with the numerous paper cuts in the integration, I would not use Azure in a production use-case at the moment.
+### What I'm looking for
+
+If I needed to deploy to production for a fast and low volume function, I would most likely choose GCP since I would save an extra 100 - 300 milliseconds. However, if the function time was several seconds, I believe that AWS would become more attractive as the performant function time would start offsetting the client-side latency.
+
+Azure’s client-side latency variance of the box (p75 - p25)  was quite high and appeared to be right-skewed. This combined with the numerous paper cuts in the integration, I would not use Azure in a production use-case at the moment.
 
 Caveat: I’m not sure if I should weigh the client-side latency findings too heavily since client-side latency can be impacted by a number of external factors: physical location, server-side latency, network latency, DNS, etc..
+
 
 
 
 ## Interesting findings
 
 * Even though my call pattern was low-volume (once per minute), AWS Lambda would cold start roughly once every ~130 minutes plus or minus 20 minutes. [Reference](#aws-cold-start-latencies-by-region)
-* From a client-side latency perspective, GCP Cloud Functions were the fastest across all regions by 100’s of milliseconds in some cases. There are several explanations for this: 
+* AWS has the longest median time between cold starts at around 120 minutes. Azure cold starts every ~40 minutes and GCP seems to vary on the cold starts depending on the region. [Reference](#time-between-cold-starts)
+* From a client-side latency perspective, GCP Cloud Functions were the fastest across all regions by 100’s of milliseconds in some cases. [Reference](#overall-client-side-latency) There are many explanations for this: 
   * Server side latency - the time between when the cloud provider receives the invoke request to when the function is invoked
   * Network latency - The network hops from the caller to the cloud providers are likely different and could impact latency
   * Local setup  - In my simulation, I called various cloud providers from a t2.micro EC2 instance in us-west-2. The results could have varied if I used a different network setup or even a different cloud provider.
-* All 3 cloud providers are relatively stable when comparing overall client latencies. When comparing p90 client latencies, AWS and GCP were relatively stable while Azure’s variance was significantly larger in most regions. [Reference](#p90-client-side-latency)
-* For overall function and client latencies, Azure kept up with AWS and GCP. However, performance started to vary by orders of magnitude when looking at p90.
+* All 3 cloud providers are relatively stable when comparing overall client latencies [Reference](#overall-client-side-latency)
+* For overall function and client latencies, Azure kept up with AWS and GCP [Reference](#overall-function-latency-by-region)
 
 ## Background
+
 Cloud providers typically provide serverless functions where users provide the business logic and the cloud provider will manage the compute resources, i.e. the functions. In this doc, I will be reviewing the following services:
 * AWS - AWS Lambda
 * Azure - Cloud Functions
@@ -63,13 +82,14 @@ In general, there is not a lot of visibility into how much time is spent inside 
 ## Out of scope
 
 ### User isolation
-By the nature of distributed systems, a spike in latency or errors for one user does not necessarily indicate a service-wide outage. As such, this analysis is not representative of overall service health. It can only be used to identify its own availability.
-Other errors
 
-There is a chance that requests could fail that are not related to the serverless functions availability. I will do my best to filter those requests out but it will be difficult to root cause those errors.
+By the nature of distributed systems, a spike in latency or errors for one user does not necessarily indicate a service-wide outage. As such, this analysis is not representative of overall service health. It can only be used to identify the availability of the system for that particular user and their functions.
+
 
 ### Hosting
-If the canary runs on the same infrastructure as some of the Cloud Functions, that may bias some of the results. For example, the canary running on an AWS EC2 instance calling Lambda may produce different results if the canary was running on completely isolated infrastructure.
+
+If the canary runs on the same infrastructure as some of the Cloud Functions, that may bias some of the results. For example, the canary running on an AWS EC2 instance calling Lambda may produce different results if the canary was running on a separate hosting provider.
+
 
 ## Simulation setup
 I have a t2.micro EC2 instance launched in us-west-2 (Oregon). Once per minute, I make requests to function services in each of the 4 regions in AWS, Azure, and GCP. I have chosen specific regions that are in close proximity to each other so that we can get as close to an apples to apples comparison as possible.
@@ -92,7 +112,7 @@ I am opting to not use additional provider-specific configurations that may help
 
 ## Results
 
-### Function Latency (excluding outliers)
+### Function Latency (excluding outliers via showfliers = False in seaborn)
 
 #### Overall Function Latency by Region
 
@@ -103,16 +123,7 @@ I am opting to not use additional provider-specific configurations that may help
 
 **Winner: AWS**
 
-#### p90 Function Latency by Region
-
-![GRU P90 Function Latency](/images/cs/FunctionLatencyP90GRU.png "GRU P90 Function Latency")
-![IAD P90 Function Latency](/images/cs/FunctionLatencyP90IAD.png "IAD P90 Function Latency")
-![LHR P90 Function Latency](/images/cs/FunctionLatencyP90LHR.png "LHR P90 Function Latency")
-![NRT P90 Function Latency](/images/cs/FunctionLatencyP90NRT.png "NRT P90 Function Latency")
-
-**Winner: AWS**
-
-### Client-side latency (excluding outliers)
+### Client-side latency (excluding outliers via showfliers = False in seaborn)
 
 #### Overall Client-side Latency
 
@@ -123,14 +134,6 @@ I am opting to not use additional provider-specific configurations that may help
 
 **Winner: GCP**
 
-#### p90 Client-side Latency
-
-![GRU P90 Client-side Latency](/images/cs/ClientLatencyP90GRU.png "GRU P90 Client-side Latency")
-![IAD P90 Client-side Latency](/images/cs/ClientLatencyP90IAD.png "IAD P90 Client-side Latency")
-![LHR P90 Client-side Latency](/images/cs/ClientLatencyP90LHR.png "LHR P90 Client-side Latency")
-![NRT P90 Client-side Latency](/images/cs/ClientLatencyP90NRT.png "NRT P90 Client-side Latency")
-
-**Winner: GCP**
 
 ### AWS Cold Start Latencies by Region
 
@@ -144,9 +147,10 @@ I am opting to not use additional provider-specific configurations that may help
 
 
 ### Azure and GCP cold starts
-I would have liked to measure the impact of Azure and GCP cold starts as well but there is not a good mechanism for accurately measuring them at the invoke level.
 
-Azure has the concept of a “HostInstanceId”, which represents the instance on which your invoke ran on. However, even if we interpret a new “HostInstanceId” as a cold start, it does not guarantee that Azure is not creating buffer instances in the back 
+Although I would have preferred to measure the impact of cold starts on Azure and GCP, accurately measuring them at the invoke level is currently not possible.
+
+Azure has the concept of a “HostInstanceId”, which represents the instance on which your invoke ran. However, even if we interpret a new “HostInstanceId” as a cold start, it does not guarantee that Azure is not creating extra instances on the backend for redundancy.
 
 
 ## Paper cuts
