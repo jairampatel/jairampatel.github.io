@@ -1,7 +1,7 @@
 ---
 title: "Latency Showdown: AWS Lambda vs Azure Cloud Functions vs GCP Cloud Functions"
-date: 2023-03-04
-draft: true
+date: 2023-03-08
+draft: false
 ---
 
 **Disclaimer: These results are representative of my specific simulation setup. Simulations with different parameters may yield different results. For example: higher volume, larger function size, different language, different region etc…**
@@ -15,7 +15,7 @@ If you're thinking of using serverless functions, it's crucial to pick a cloud p
 Overall winner: AWS Lambda
 
 | Category                                    | Winner |
-| ------------------------------------------- | ------ |
+| :-------------------------------------------: | :------: |
 | Function latency (lower is better)          | AWS    |
 | Client latency (lower is better)            | GCP    |
 | Ease of setup                               | AWS    |
@@ -75,8 +75,8 @@ If there is no container available, one will be provisioned. This action introdu
 ## Why do this?
 In general, there is not a lot of visibility into how much time is spent inside the cloud provider outside of the user’s function. To be specific, these are the open questions that I am hoping to answer:
 * How frequently do users see cold starts?
-* What is the variance of function latency?
-* What is the variance of client latency?
+* What is the function latency variance?
+* What is the client latency variance?
 
 
 ## Out of scope
@@ -96,7 +96,7 @@ I have a t2.micro EC2 instance launched in us-west-2 (Oregon). Once per minute, 
 
 
 | Airport code | AWS                     | Azure                          | GCP                            |
-| ------------ | ----------------------- | ------------------------------ | ------------------------------ |
+| :------------: | :-----------------------: | :------------------------------: | :------------------------------: |
 | GRU          | sa-east-1 (São Paulo)   | Brazil South (São Paulo State) | southamerica-east1 (São Paulo) |
 | IAD          | us-east-1 (N. Virginia) | East US (Virginia)             | us-east4 (north virginia)      |
 | LHR          | eu-west-2 (London)      | UK South (London)              | europe-west2 (london)          |
@@ -164,7 +164,7 @@ Little to no issues here. Integration was very quick. I copy-pasted an example f
 
 ### GCP
 
-Getting the Python Cloud Functions client to work with auth was a bit tedious. The documentation will eventually lead you to [this giant web page with all the method definitions](https://googleapis.dev/python/cloudfunctions/latest/functions_v2/function_service.html) that was a bit difficult to go through.
+Getting the Python Cloud Functions client to work with auth was a bit tedious. The documentation will eventually lead you to [this giant web page with all the method definitions](https://googleapis.dev/python/cloudfunctions/latest/functions_v2/function_service.html) that was a bit difficult to go through. The process to make authenticated calls was also unclear and the documentation was difficult to find.
 
 ### Azure
 

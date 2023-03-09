@@ -6,7 +6,17 @@
     <description>Recent content on Jairam&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://jairampatel.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://jairampatel.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Latency Showdown: AWS Lambda vs Azure Cloud Functions vs GCP Cloud Functions</title>
+      <link>https://jairampatel.github.io/2023/03/08/latency-showdown-aws-lambda-vs-azure-cloud-functions-vs-gcp-cloud-functions/</link>
+      <pubDate>Wed, 08 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://jairampatel.github.io/2023/03/08/latency-showdown-aws-lambda-vs-azure-cloud-functions-vs-gcp-cloud-functions/</guid>
+      <description>Disclaimer: These results are representative of my specific simulation setup. Simulations with different parameters may yield different results. For example: higher volume, larger function size, different language, different region etc…
+Intro If you&amp;rsquo;re thinking of using serverless functions, it&amp;rsquo;s crucial to pick a cloud provider that gives great results without fail. This article compares AWS Lambda, Azure Cloud Functions, and GCP Cloud Functions to see which is the fastest and easiest to use.</description>
+    </item>
+    
     <item>
       <title>How do you find your top 3 favorite Disney movies?</title>
       <link>https://jairampatel.github.io/2022/04/19/how-do-you-find-your-top-3-favorite-disney-movies/</link>

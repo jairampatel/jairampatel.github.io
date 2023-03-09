@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-22488763-2', 'jairampatel.com');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    
+    <title>Jairam&#39;s Blog | Latency Showdown: AWS Lambda vs Azure Cloud Functions vs GCP Cloud Functions</title>
+</head><body>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+            ga('create', 'UA-22488763-2', 'jairampatel.com');
+            ga('send', 'pageview');  
+        </script>
+        <div id="wrapper"><link rel="stylesheet" type="text/css" href="/css/style.css">
+<div id="navBar">
+    <div id="navbarItem">
+        <a href="/">Home</a>
+    </div>
+    <div id="navbarItem">
+        <a href="/posts">Blog</a>
+    </div>
+    <div id="navbarItem">
+        <a href="/projects">Projects</a>
+    </div>
+</div><div id="content">
+<h1>Latency Showdown: AWS Lambda vs Azure Cloud Functions vs GCP Cloud Functions</h1>
+<h4>Published: Mar 8, 2023</h4>
+<br>
+<p><strong>Disclaimer: These results are representative of my specific simulation setup. Simulations with different parameters may yield different results. For example: higher volume, larger function size, different language, different region etc…</strong></p>
+<h2 id="intro">Intro</h2>
+<p>If you&rsquo;re thinking of using serverless functions, it&rsquo;s crucial to pick a cloud provider that gives great results without fail. This article compares AWS Lambda, Azure Cloud Functions, and GCP Cloud Functions to see which is the fastest and easiest to use. When you finish reading, you&rsquo;ll know which one is perfect for your business. Let&rsquo;s dive into this detailed comparison of the three best serverless function providers!</p>
+<h2 id="results-tldr">Results TL;DR</h2>
+<p>Overall winner: AWS Lambda</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Function latency (lower is better)</td>
+<td>AWS</td>
+</tr>
+<tr>
+<td>Client latency (lower is better)</td>
+<td>GCP</td>
+</tr>
+<tr>
+<td>Ease of setup</td>
+<td>AWS</td>
+</tr>
+<tr>
+<td>Time between cold starts (higher is better)</td>
+<td>AWS</td>
+</tr>
+</tbody>
+</table>
+<p>Overall, AWS was the easiest to set up and was the most stable in terms of function latency across all regions. GCP was the fastest in terms of client-side latency and I’m still not completely sure why this is the case. Given that the data centers for each cloud provider are probably close to each other, my best guess would be that GCP’s server-side performance is simply faster.</p>
+<h3 id="what-im-looking-for">What I&rsquo;m looking for</h3>
+<p>If I needed to deploy to production for a fast and low volume function, I would most likely choose GCP since I would save an extra 100 - 300 milliseconds. However, if the function time was several seconds, I believe that AWS would become more attractive as the performant function time would start offsetting the client-side latency.</p>
+<p>Azure’s client-side latency variance of the box (p75 - p25)  was quite high and appeared to be right-skewed. This combined with the numerous paper cuts in the integration, I would not use Azure in a production use-case at the moment.</p>
+<p>Caveat: I’m not sure if I should weigh the client-side latency findings too heavily since client-side latency can be impacted by a number of external factors: physical location, server-side latency, network latency, DNS, etc..</p>
+<h2 id="interesting-findings">Interesting findings</h2>
+<ul>
+<li>Even though my call pattern was low-volume (once per minute), AWS Lambda would cold start roughly once every ~130 minutes plus or minus 20 minutes. <a href="#aws-cold-start-latencies-by-region">Reference</a></li>
+<li>AWS has the longest median time between cold starts at around 120 minutes. Azure cold starts every ~40 minutes and GCP seems to vary on the cold starts depending on the region. <a href="#time-between-cold-starts">Reference</a></li>
+<li>From a client-side latency perspective, GCP Cloud Functions were the fastest across all regions by 100’s of milliseconds in some cases. <a href="#overall-client-side-latency">Reference</a> There are many explanations for this:
+<ul>
+<li>Server side latency - the time between when the cloud provider receives the invoke request to when the function is invoked</li>
+<li>Network latency - The network hops from the caller to the cloud providers are likely different and could impact latency</li>
+<li>Local setup  - In my simulation, I called various cloud providers from a t2.micro EC2 instance in us-west-2. The results could have varied if I used a different network setup or even a different cloud provider.</li>
+</ul>
+</li>
+<li>All 3 cloud providers are relatively stable when comparing overall client latencies <a href="#overall-client-side-latency">Reference</a></li>
+<li>For overall function and client latencies, Azure kept up with AWS and GCP <a href="#overall-function-latency-by-region">Reference</a></li>
+</ul>
+<h2 id="background">Background</h2>
+<p>Cloud providers typically provide serverless functions where users provide the business logic and the cloud provider will manage the compute resources, i.e. the functions. In this doc, I will be reviewing the following services:</p>
+<ul>
+<li>AWS - AWS Lambda</li>
+<li>Azure - Cloud Functions</li>
+<li>GCP - Cloud Functions</li>
+</ul>
+<p>When a serverless function is called, or invoked, the cloud provider will run the user’s code on a container or instance. In this scenario, the total client-side latency is the following:</p>
+<ul>
+<li>User’s code makes request to cloud provider</li>
+<li>Cloud provider calls user’s function</li>
+<li>Run user’s function</li>
+<li>Get the output and return to user</li>
+</ul>
+<p>If there is no container available, one will be provisioned. This action introduces additional overhead and is often referred to as a “cold-start”:</p>
+<ul>
+<li>User’s code makes request to cloud provider</li>
+<li><strong>Provision new container (&lt;&mdash; cold start)</strong></li>
+<li>Cloud provider calls user’s function</li>
+<li>Run user’s function</li>
+<li>Get the output and return to user</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/images/cs/csDefinitions.png" alt="diagram!" title="diagram"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Fig. 1 - Latency definitions</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="why-do-this">Why do this?</h2>
+<p>In general, there is not a lot of visibility into how much time is spent inside the cloud provider outside of the user’s function. To be specific, these are the open questions that I am hoping to answer:</p>
+<ul>
+<li>How frequently do users see cold starts?</li>
+<li>What is the variance of function latency?</li>
+<li>What is the variance of client latency?</li>
+</ul>
+<h2 id="out-of-scope">Out of scope</h2>
+<h3 id="user-isolation">User isolation</h3>
+<p>By the nature of distributed systems, a spike in latency or errors for one user does not necessarily indicate a service-wide outage. As such, this analysis is not representative of overall service health. It can only be used to identify the availability of the system for that particular user and their functions.</p>
+<h3 id="hosting">Hosting</h3>
+<p>If the canary runs on the same infrastructure as some of the Cloud Functions, that may bias some of the results. For example, the canary running on an AWS EC2 instance calling Lambda may produce different results if the canary was running on a separate hosting provider.</p>
+<h2 id="simulation-setup">Simulation setup</h2>
+<p>I have a t2.micro EC2 instance launched in us-west-2 (Oregon). Once per minute, I make requests to function services in each of the 4 regions in AWS, Azure, and GCP. I have chosen specific regions that are in close proximity to each other so that we can get as close to an apples to apples comparison as possible.</p>
+<table>
+<thead>
+<tr>
+<th>Airport code</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GRU</td>
+<td>sa-east-1 (São Paulo)</td>
+<td>Brazil South (São Paulo State)</td>
+<td>southamerica-east1 (São Paulo)</td>
+</tr>
+<tr>
+<td>IAD</td>
+<td>us-east-1 (N. Virginia)</td>
+<td>East US (Virginia)</td>
+<td>us-east4 (north virginia)</td>
+</tr>
+<tr>
+<td>LHR</td>
+<td>eu-west-2 (London)</td>
+<td>UK South (London)</td>
+<td>europe-west2 (london)</td>
+</tr>
+<tr>
+<td>NRT</td>
+<td>ap-northeast-1 (Tokyo)</td>
+<td>Japan East (Tokyo)</td>
+<td>asia-northeast1 (Tokyo)</td>
+</tr>
+</tbody>
+</table>
+<p>All functions are configured with the following:</p>
+<ul>
+<li>128MB memory</li>
+<li>Python 3.8 runtime</li>
+<li>x86-based architecture</li>
+</ul>
+<p>I am opting to not use additional provider-specific configurations that may help improve performance and reduce cold starts. For this simulation, I am interested in seeing how each service performs out of the box.</p>
+<h2 id="results">Results</h2>
+<h3 id="function-latency-excluding-outliers-via-showfliers--false-in-seaborn">Function Latency (excluding outliers via showfliers = False in seaborn)</h3>
+<h4 id="overall-function-latency-by-region">Overall Function Latency by Region</h4>
+<p><img src="/images/cs/FunctionLatencyGRU.png" alt="GRU Function Latency" title="GRU Function Latency">
+<img src="/images/cs/FunctionLatencyIAD.png" alt="IAD Function Latency" title="IAD Function Latency">
+<img src="/images/cs/FunctionLatencyLHR.png" alt="LHR Function Latency" title="LHR Function Latency">
+<img src="/images/cs/FunctionLatencyNRT.png" alt="NRT Function Latency" title="NRT Function Latency"></p>
+<p><strong>Winner: AWS</strong></p>
+<h3 id="client-side-latency-excluding-outliers-via-showfliers--false-in-seaborn">Client-side latency (excluding outliers via showfliers = False in seaborn)</h3>
+<h4 id="overall-client-side-latency">Overall Client-side Latency</h4>
+<p><img src="/images/cs/ClientLatencyGRU.png" alt="GRU Client-side Latency" title="GRU Client-side Latency">
+<img src="/images/cs/ClientLatencyIAD.png" alt="IAD Client-side Latency" title="IAD Client-side Latency">
+<img src="/images/cs/ClientLatencyLHR.png" alt="LHR Client-side Latency" title="LHR Client-side Latency">
+<img src="/images/cs/ClientLatencyNRT.png" alt="NRT Client-side Latency" title="NRT Client-side Latency"></p>
+<p><strong>Winner: GCP</strong></p>
+<h3 id="aws-cold-start-latencies-by-region">AWS Cold Start Latencies by Region</h3>
+<p><img src="/images/cs/AWSColdStartLatency.png" alt="AWS cold start Latency" title="AWS Cold Start Latency"></p>
+<h3 id="time-between-cold-starts">Time between cold starts</h3>
+<p><img src="/images/cs/ColdStartDeltaAWS.png" alt="AWS time between cold starts" title="AWS Cold Start Delta">
+<img src="/images/cs/ColdStartDeltaAzure.png" alt="Azure time between cold starts" title="Azure Cold Start Delta">
+<img src="/images/cs/ColdStartDeltaGCP.png" alt="GCP time between cold starts" title="GCP Cold Start Delta"></p>
+<h3 id="azure-and-gcp-cold-starts">Azure and GCP cold starts</h3>
+<p>Although I would have preferred to measure the impact of cold starts on Azure and GCP, accurately measuring them at the invoke level is currently not possible.</p>
+<p>Azure has the concept of a “HostInstanceId”, which represents the instance on which your invoke ran. However, even if we interpret a new “HostInstanceId” as a cold start, it does not guarantee that Azure is not creating extra instances on the backend for redundancy.</p>
+<h2 id="paper-cuts">Paper cuts</h2>
+<h3 id="aws">AWS</h3>
+<p>Little to no issues here. Integration was very quick. I copy-pasted an example from <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html#Lambda.Client.invoke">the boto3 documentation</a> and it worked on the first try. I didn’t have to scan Cloudwatch Logs since the response from Lambda gives you the function duration and the init duration, if there was a cold start.</p>
+<p><img src="/images/cs/notSure.png" alt="Code works" title="Code works"></p>
+<h3 id="gcp">GCP</h3>
+<p>Getting the Python Cloud Functions client to work with auth was a bit tedious. The documentation will eventually lead you to <a href="https://googleapis.dev/python/cloudfunctions/latest/functions_v2/function_service.html">this giant web page with all the method definitions</a> that was a bit difficult to go through.</p>
+<h3 id="azure">Azure</h3>
+<p>Azure was the most painful integration. There were several fields I needed to set in order to get the functions working. After I created function keys, they would automatically get deleted after some amount of time. After Googling, I found that I needed to update the lifecycle policy in the storage account. There were cases where Azure would just be missing logs from my invocations so I was unable to get some performance numbers for some of the invocations.</p>
+
+
+            </div></div>
+    </body>
+</html>
