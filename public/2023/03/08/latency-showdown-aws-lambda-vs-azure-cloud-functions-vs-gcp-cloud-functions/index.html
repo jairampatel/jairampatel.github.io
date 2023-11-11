@@ -2,21 +2,21 @@
 <html><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPC6QVV792"></script>
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-        ga('create', 'UA-22488763-2', 'jairampatel.com');
-        ga('send', 'pageview');
-
+      gtag('config', 'G-DPC6QVV792');
     </script>
     
     
     
     <title>Jairam&#39;s Blog | Latency Showdown: AWS Lambda vs Azure Cloud Functions vs GCP Cloud Functions</title>
-</head><body>
+</head>
+<body>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -39,7 +39,6 @@
     </div>
 </div><div id="content">
 <h1>Latency Showdown: AWS Lambda vs Azure Cloud Functions vs GCP Cloud Functions</h1>
-<h4>Published: Mar 8, 2023</h4>
 <br>
 <p><strong>Disclaimer: These results are representative of my specific simulation setup. Simulations with different parameters may yield different results. For example: higher volume, larger function size, different language, different region etc…</strong></p>
 <h2 id="intro">Intro</h2>
@@ -49,26 +48,26 @@
 <table>
 <thead>
 <tr>
-<th>Category</th>
-<th>Winner</th>
+<th style="text-align:center">Category</th>
+<th style="text-align:center">Winner</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Function latency (lower is better)</td>
-<td>AWS</td>
+<td style="text-align:center">Function latency (lower is better)</td>
+<td style="text-align:center">AWS</td>
 </tr>
 <tr>
-<td>Client latency (lower is better)</td>
-<td>GCP</td>
+<td style="text-align:center">Client latency (lower is better)</td>
+<td style="text-align:center">GCP</td>
 </tr>
 <tr>
-<td>Ease of setup</td>
-<td>AWS</td>
+<td style="text-align:center">Ease of setup</td>
+<td style="text-align:center">AWS</td>
 </tr>
 <tr>
-<td>Time between cold starts (higher is better)</td>
-<td>AWS</td>
+<td style="text-align:center">Time between cold starts (higher is better)</td>
+<td style="text-align:center">AWS</td>
 </tr>
 </tbody>
 </table>
@@ -129,8 +128,8 @@
 <p>In general, there is not a lot of visibility into how much time is spent inside the cloud provider outside of the user’s function. To be specific, these are the open questions that I am hoping to answer:</p>
 <ul>
 <li>How frequently do users see cold starts?</li>
-<li>What is the variance of function latency?</li>
-<li>What is the variance of client latency?</li>
+<li>What is the function latency variance?</li>
+<li>What is the client latency variance?</li>
 </ul>
 <h2 id="out-of-scope">Out of scope</h2>
 <h3 id="user-isolation">User isolation</h3>
@@ -142,36 +141,36 @@
 <table>
 <thead>
 <tr>
-<th>Airport code</th>
-<th>AWS</th>
-<th>Azure</th>
-<th>GCP</th>
+<th style="text-align:center">Airport code</th>
+<th style="text-align:center">AWS</th>
+<th style="text-align:center">Azure</th>
+<th style="text-align:center">GCP</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>GRU</td>
-<td>sa-east-1 (São Paulo)</td>
-<td>Brazil South (São Paulo State)</td>
-<td>southamerica-east1 (São Paulo)</td>
+<td style="text-align:center">GRU</td>
+<td style="text-align:center">sa-east-1 (São Paulo)</td>
+<td style="text-align:center">Brazil South (São Paulo State)</td>
+<td style="text-align:center">southamerica-east1 (São Paulo)</td>
 </tr>
 <tr>
-<td>IAD</td>
-<td>us-east-1 (N. Virginia)</td>
-<td>East US (Virginia)</td>
-<td>us-east4 (north virginia)</td>
+<td style="text-align:center">IAD</td>
+<td style="text-align:center">us-east-1 (N. Virginia)</td>
+<td style="text-align:center">East US (Virginia)</td>
+<td style="text-align:center">us-east4 (north virginia)</td>
 </tr>
 <tr>
-<td>LHR</td>
-<td>eu-west-2 (London)</td>
-<td>UK South (London)</td>
-<td>europe-west2 (london)</td>
+<td style="text-align:center">LHR</td>
+<td style="text-align:center">eu-west-2 (London)</td>
+<td style="text-align:center">UK South (London)</td>
+<td style="text-align:center">europe-west2 (london)</td>
 </tr>
 <tr>
-<td>NRT</td>
-<td>ap-northeast-1 (Tokyo)</td>
-<td>Japan East (Tokyo)</td>
-<td>asia-northeast1 (Tokyo)</td>
+<td style="text-align:center">NRT</td>
+<td style="text-align:center">ap-northeast-1 (Tokyo)</td>
+<td style="text-align:center">Japan East (Tokyo)</td>
+<td style="text-align:center">asia-northeast1 (Tokyo)</td>
 </tr>
 </tbody>
 </table>
@@ -211,7 +210,7 @@
 <p>Little to no issues here. Integration was very quick. I copy-pasted an example from <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html#Lambda.Client.invoke">the boto3 documentation</a> and it worked on the first try. I didn’t have to scan Cloudwatch Logs since the response from Lambda gives you the function duration and the init duration, if there was a cold start.</p>
 <p><img src="/images/cs/notSure.png" alt="Code works" title="Code works"></p>
 <h3 id="gcp">GCP</h3>
-<p>Getting the Python Cloud Functions client to work with auth was a bit tedious. The documentation will eventually lead you to <a href="https://googleapis.dev/python/cloudfunctions/latest/functions_v2/function_service.html">this giant web page with all the method definitions</a> that was a bit difficult to go through.</p>
+<p>Getting the Python Cloud Functions client to work with auth was a bit tedious. The documentation will eventually lead you to <a href="https://googleapis.dev/python/cloudfunctions/latest/functions_v2/function_service.html">this giant web page with all the method definitions</a> that was a bit difficult to go through. The process to make authenticated calls was also unclear and the documentation was difficult to find.</p>
 <h3 id="azure">Azure</h3>
 <p>Azure was the most painful integration. There were several fields I needed to set in order to get the functions working. After I created function keys, they would automatically get deleted after some amount of time. After Googling, I found that I needed to update the lifecycle policy in the storage account. There were cases where Azure would just be missing logs from my invocations so I was unable to get some performance numbers for some of the invocations.</p>
 
