@@ -1,6 +1,6 @@
 ---
 title: "Emojirades"
-description: "Guitar chords / tabs lookup"
+description: "Emojis + charades word game"
 date: 2023-11-01
 draft: false
 image: "/images/emojirades.png"
